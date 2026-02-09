@@ -19,7 +19,7 @@ function App() {
   // 6. current category should change
   // 7. handle all categories
   // 8. refactor category
-  // maybe need to refetch state of products?
+  // 9. no need to refetch state of products as it be refethced with each page refresh alrd...
 
   useEffect( () => {
     fetch(PROD_API)
