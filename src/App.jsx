@@ -6,7 +6,7 @@ function App() {
   // state is the products fetched
   const [master_data, setMaster] = useState([]);
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(['All']);
   const [chosen_category, setChosenCategory] = useState('All');
 
   const PROD_API = 'https://fakestoreapi.com/products';
@@ -28,7 +28,7 @@ function App() {
       setProducts(data);
       setMaster(data);
       const unique_cat = new Set(data.map( product => product.category));
-      const convertedArray = [...unique_cat];
+      const convertedArray = [...categories, ...unique_cat];
       const category_objects = convertedArray.map( (category, i) => { return {id: i, name: category}});
       setCategories(category_objects);
     });
@@ -53,7 +53,6 @@ function App() {
       <hr />
       <p>Current Category: {chosen_category}, Amount: {products.length}</p>
       <div className="filter-area flex gap-1">
-        <button className="border" onClick={filterCategory}>All</button>
         {categories.map( category_obj => <FilterCard key={category_obj.id} data={category_obj} filterCategory={filterCategory}/>)}
       </div>
       <div className="product-gallery">
@@ -63,12 +62,13 @@ function App() {
   )
 }
 
-    // fetch all products again
-    // fetch(PROD_API)
-    // .then(response => response.json())
-    // .then(data => { 
-    //    const filtered_products = data.filter( obj => obj.category === user_choice); 
-    //    setProducts(filtered_products);
-    // });
-
 export default App
+
+// ARCHIVED INEFFICIENT SOLUTION
+// fetch all products again
+// fetch(PROD_API)
+// .then(response => response.json())
+// .then(data => { 
+//    const filtered_products = data.filter( obj => obj.category === user_choice); 
+//    setProducts(filtered_products);
+// });
